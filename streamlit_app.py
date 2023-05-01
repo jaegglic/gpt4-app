@@ -10,7 +10,7 @@ from dotenv import load_dotenv
 load_dotenv()
 API_KEY = os.environ.get("OPENAI_API_KEY", "")
 
-st.title("NER by GPT-4")
+st.title("Text Simplification by GPT-4")
 
 
 def prompting(text: str) -> List[dict]:
@@ -45,9 +45,11 @@ def main():
     text = st.text_input(label='enter your text...')
     if text:
         messages = prompting(text=text)
+        st.markdown('## Raw text')
         st.markdown(text)
 
         st.markdown("---")
+        st.markdown('## Simplified text')
 
         response = gpt_4(messages=messages)
         st.markdown(response)
