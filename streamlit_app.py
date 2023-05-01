@@ -45,11 +45,11 @@ def main():
     text = st.text_input(label='enter your text...')
     if text:
         messages = prompting(text=text)
-        st.markdown('## Raw text')
+        st.markdown('### Raw text')
         st.markdown(text)
 
         st.markdown("---")
-        st.markdown('## Simplified text')
+        st.markdown('### Simplified text')
 
         response = gpt_4(messages=messages)
         st.markdown(response)
