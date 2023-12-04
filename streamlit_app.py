@@ -3,12 +3,13 @@ from typing import List
 import json
 
 import streamlit as st
-import openai
+from openai import OpenAI
 from dotenv import load_dotenv
 
 
 load_dotenv()
-API_KEY = os.environ.get("OPENAI_API_KEY", "")
+_API_KEY = os.environ.get("OPENAI_API_KEY", "")
+_CLIENT = OpenAI(api_key=_API_KEY)
 
 st.title("Text Simplification by GPT-4")
 
@@ -29,12 +30,11 @@ def prompting(text: str) -> List[dict]:
 
 def gpt_4(messages: List[dict]) -> str:
     """This function generate a response to the given query using gpt-4."""
-    response = openai.ChatCompletion.create(
+    response = _CLIENT.chat.completions.create(
         model="gpt-4",
         messages=messages,
-        api_key=API_KEY,
     )
-    return response.choices[0].message['content']
+    return response.choices[0].message.content
 
 
 def main():
